@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,12 +20,19 @@ class MainTest {
 
     @BeforeAll
     static void initializeDriver(){ //metodo que setea nuestro driver
-        //Donde esta el driver
-        System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver");
+//CHROME
+        //Donde esta el driver Chrome
+        //System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver");
         //se inicializa el objeto
-        driver = new ChromeDriver();
+        //driver = new ChromeDriver();
+//FIREFOX
+        //Donde esta el driver Firefox
+        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver");
+        //se inicializa el objeto
+        driver=new FirefoxDriver();
+
         //implicit wait
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         //maximizar la ventana con el propósito que el test tenga
         //mayor probabilidad de realizarlo correctamente
         driver.manage().window().maximize();
@@ -51,7 +59,7 @@ class MainTest {
         WebElement tituloTextoBuscado= driver.findElement(By.cssSelector("#firstHeading > span"));
         assertEquals(tituloTextoBuscado.getText(), "Felis silvestris catus");
 
-        //calidando url de busqueda
+        //validando url de busqueda
         assertEquals(driver.getCurrentUrl(), "https://es.wikipedia.org/wiki/Felis_silvestris_catus");
 
     }
